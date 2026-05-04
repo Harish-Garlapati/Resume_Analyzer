@@ -2,7 +2,15 @@ import streamlit as st
 from PyPDF2 import PdfReader
 from groq import Groq
 
-client = Groq(api_key="YOUR_GROQ_API_KEY")
+import os
+
+api_key = os.getenv("GROQ_API_KEY")
+
+if not api_key:
+    st.error("API key not found. Please check Streamlit Secrets.")
+    st.stop()
+
+client = Groq(api_key=api_key)
 
 st.title("AI Resume Analyzer")
 
